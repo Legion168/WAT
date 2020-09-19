@@ -63,6 +63,18 @@
 			<version>1.9.1</version>
 		</dependency>
 		<!-- end of webjars -->
+
+		<dependency>
+			<groupId>com.org</groupId>
+			<artifactId>wat-data</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.ibm.watson</groupId>
+			<artifactId>ibm-watson</artifactId>
+			<version>8.6.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
