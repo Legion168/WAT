@@ -1,1 +1,2 @@
 # WAT
+Watson Assistant Tool
