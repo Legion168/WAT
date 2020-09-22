@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Dashboard</title>
 </head>
@@ -8,9 +9,13 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
-                <h3>Column 1</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+                <h3>Credentials:</h3>
+                <p th:text="${credentials.username}">Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+                <p th:text="${credentials.password}">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+                <p th:text="${credentials.workspaceId}">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+                <p th:text="${credentials.endpoint}">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+                <p th:text="${credentials.assistantId}">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+                <p th:text="${credentials.version}">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
             </div>
         </div>
     </div>
