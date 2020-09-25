@@ -1,8 +1,8 @@
 package com.org.watweb.services;
 
-import com.org.watdata.model.Credentials;
+import com.org.watweb.model.CredentialLogin;
 
 public interface CredentialService {
-    boolean verifyCredential(Credentials credentials);
-    Credentials getCredential();
+    boolean verifyCredential(CredentialLogin credentials);
+    CredentialLogin getCredential();
 }

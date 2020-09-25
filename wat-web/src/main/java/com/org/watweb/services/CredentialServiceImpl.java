@@ -4,63 +4,44 @@ import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.assistant.v2.Assistant;
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
-import com.org.watdata.model.Credentials;
-import org.springframework.beans.factory.annotation.Value;
+import com.org.watweb.model.CredentialLogin;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CredentialServiceImpl implements CredentialService {
-    @Value("${watson.username}")
-    private String username;
+    private final ApplicationContext applicationContext;
 
-    @Value("${watson.password}")
-    private String password;
-
-    @Value("${watson.version}")
-    private String version;
-
-    @Value("${watson.workspace-id}")
-    private String workspaceId;
-
-    @Value("${watson.endpoint}")
-    private String endpoint;
-
-    @Value("${watson.assistant-id}")
-    private String assistantId;
-
-    @Override
-    public Credentials getCredential() {
-        Credentials credentials = new Credentials();
-        credentials.setUsername(username);
-        credentials.setPassword(password);
-        credentials.setWorkspaceId(workspaceId);
-        credentials.setVersion(version);
-        credentials.setAssistantId(assistantId);
-        credentials.setEndpoint(endpoint);
-
-        return credentials;
+    public CredentialServiceImpl(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
     }
 
     @Override
-    public boolean verifyCredential(Credentials credentials) {
-//        BasicAuthenticator authenticator = new BasicAuthenticator(credentials.getUsername(), credentials.getPassword());
+    public CredentialLogin getCredential() {
+        return applicationContext.getBean(CredentialLogin.class);
+    }
 
-        IamAuthenticator authenticator = new IamAuthenticator(credentials.getPassword());
+    @Override
+    public boolean verifyCredential(CredentialLogin credentials) {
+        System.out.println("--------------------------------");
+        System.out.println(credentials.toString());
+        System.out.println("--------------------------------");
 
-        Assistant assistant = new Assistant(version, authenticator);
-        assistant.setServiceUrl(endpoint);
+        IamAuthenticator authenticator = new IamAuthenticator(credentials.getApikey());
 
-        CreateSessionOptions options = new CreateSessionOptions.Builder(assistantId).build();
+        Assistant assistant = new Assistant("2020-04-01", authenticator);
+        assistant.setServiceUrl(credentials.getEndpoint());
+
+        CreateSessionOptions options = new CreateSessionOptions.Builder(credentials.getAssistantId()).build();
 
         SessionResponse response = null;
 
         try {
-
             response = assistant.createSession(options).execute().getResult();
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
         return response != null;
     }
 }
